@@ -2,23 +2,15 @@ package pg
 
 import (
 	"log"
+	"main/pkg/api"
 	"strings"
 
 	"github.com/gofiber/fiber/v3"
 )
 
-type loginRequest struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
-}
-
-type loginResult struct {
-	Password string `json:"password"`
-}
-
 func UserLogin(c fiber.Ctx) error {
-	var req loginRequest
-	var res loginResult
+	var req api.LoginRequest
+	var res api.LoginResult
 
 	if err := c.Bind().Body(&req); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
